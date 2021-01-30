@@ -1,0 +1,46 @@
+localhost:5001 {
+    header /  {
+	Access-Control-Allow-Origin  "*"
+        Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    }
+    tls off
+    proxy / localhost:50051 {
+	websocket
+    }
+    rewrite /sheets {
+      r  (.*)
+      to /sheets/1/ping?url={1}
+    }
+    websocket /echo cat
+}
+
+localhost:5011 {
+    header /  {
+	Access-Control-Allow-Origin  "*"
+        Access-Control-Allow-Methods "GET, POST, DELETE, PUT, OPTIONS"
+    }
+    tls off
+    gzip
+    root /localstatic/static
+}
+
+localhost:6011 {
+    header /  {
+    Access-Control-Allow-Origin  "*"
+        Access-Control-Allow-Methods "GET, POST, DELETE, PUT, OPTIONS"
+    }
+    tls off
+    gzip
+    root /localstatic/static
+}
+
+localhost:7011 {
+header /  {
+    Access-Control-Allow-Origin  "*"
+        Access-Control-Allow-Methods "GET, POST, DELETE, PUT, OPTIONS"
+    }
+    tls off
+    gzip
+    root /localstatic/static
+}
+
